@@ -1,4 +1,4 @@
-package restsample;
+package restsdemo;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.convert.support.ConfigurableConversionService;

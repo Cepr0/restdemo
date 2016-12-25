@@ -1,4 +1,4 @@
-package restsample;
+package restsdemo;
 
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -6,12 +6,12 @@ import org.springframework.boot.context.event.ApplicationReadyEvent;
 import org.springframework.context.event.EventListener;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
-import restsample.domain.entity.Child;
-import restsample.domain.entity.Parent;
-import restsample.domain.entity.Reference;
-import restsample.repository.ChildRepo;
-import restsample.repository.ParentRepo;
-import restsample.repository.ReferenceRepo;
+import restsdemo.domain.entity.Child;
+import restsdemo.domain.entity.Parent;
+import restsdemo.domain.entity.Reference;
+import restsdemo.repository.ChildRepo;
+import restsdemo.repository.ParentRepo;
+import restsdemo.repository.ReferenceRepo;
 
 import java.util.Arrays;
 

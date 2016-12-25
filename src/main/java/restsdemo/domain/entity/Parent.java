@@ -1,10 +1,10 @@
-package restsample.domain.entity;
+package restsdemo.domain.entity;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.NonNull;
 import lombok.Setter;
-import restsample.domain.base.LongId;
+import restsdemo.domain.base.LongId;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;

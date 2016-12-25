@@ -1,7 +1,7 @@
-package restsample.domain.entity;
+package restsdemo.domain.entity;
 
 import lombok.*;
-import restsample.domain.base.LongId;
+import restsdemo.domain.base.LongId;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;

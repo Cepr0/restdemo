@@ -1,4 +1,4 @@
-package restsample.domain.base;
+package restsdemo.domain.base;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;

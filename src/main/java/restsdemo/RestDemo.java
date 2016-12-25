@@ -1,4 +1,4 @@
-package restsample;
+package restsdemo;
 
 import org.h2.tools.Server;
 import org.springframework.boot.SpringApplication;

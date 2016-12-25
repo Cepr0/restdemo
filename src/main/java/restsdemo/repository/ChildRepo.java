@@ -1,12 +1,12 @@
-package restsample.repository;
+package restsdemo.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.rest.core.annotation.RepositoryRestResource;
-import restsample.domain.entity.Reference;
+import restsdemo.domain.entity.Child;
 
 /**
- * @author Cepro, 2016-12-24
+ * @author Cepro, 2016-12-25
  */
 @RepositoryRestResource
-public interface ReferenceRepo extends JpaRepository<Reference, Long> {
+public interface ChildRepo extends JpaRepository<Child, Long> {
 }
