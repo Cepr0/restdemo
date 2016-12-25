@@ -5,6 +5,7 @@ import restsdemo.domain.base.LongId;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 /**
@@ -22,7 +23,7 @@ public class Child extends LongId {
     @Column(nullable = false)
     private String name;
     
-//    @ManyToOne(optional = false)
-//    @NonNull
-//    private Reference reference;
+    @NonNull
+    @ManyToOne(optional = false)
+    private Reference reference;
 }

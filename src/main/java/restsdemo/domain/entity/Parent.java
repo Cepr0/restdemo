@@ -15,7 +15,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import static java.util.Objects.requireNonNull;
-import static javax.persistence.CascadeType.ALL;
+import static javax.persistence.CascadeType.MERGE;
 
 /**
  * @author Cepro, 2016-12-25
@@ -32,8 +32,8 @@ public class Parent extends LongId {
     private String name = "Undefine";
     
     @NonNull
-    @OneToMany(cascade = ALL)
-    private final List<Child> children = new ArrayList<>();
+    @OneToMany(cascade = MERGE)
+    private List<Child> children = new ArrayList<>();
     
     public Parent(String name, Child... children) {
         this.name = requireNonNull(name);
