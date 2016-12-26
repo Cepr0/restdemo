@@ -3,10 +3,7 @@ package restsdemo.domain.entity;
 import lombok.*;
 import restsdemo.domain.base.LongId;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 /**
  * @author Cepro, 2016-12-25
@@ -26,4 +23,7 @@ public class Child extends LongId {
     @NonNull
     @ManyToOne(optional = false)
     private Reference reference;
+    
+    public Child(String reference) {
+    }
 }

@@ -1,0 +1,1 @@
+Solved this question: http://stackoverflow.com/questions/41324078/spring-data-rest-can-not-update-patch-a-list-of-child-entities-that-have-a-r
