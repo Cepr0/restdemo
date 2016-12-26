@@ -39,9 +39,4 @@ public class Parent extends LongId {
         this.name = requireNonNull(name);
         this.children.addAll(Arrays.asList(requireNonNull(children)));
     }
-    
-    public Parent(String name, List<Child> children) {
-        this.name = requireNonNull(name);
-        this.children = requireNonNull(children);
-    }
 }
