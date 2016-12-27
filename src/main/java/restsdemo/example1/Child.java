@@ -1,8 +1,8 @@
-package restsdemo.domain.entity;
+package restsdemo.example1;
 
 import lombok.*;
 import org.springframework.data.rest.core.config.Projection;
-import restsdemo.domain.base.LongId;
+import restsdemo.base.LongId;
 
 import javax.persistence.*;
 

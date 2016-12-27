@@ -1,4 +1,4 @@
-package restsdemo;
+package restsdemo.example1;
 
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
@@ -6,12 +6,6 @@ import org.springframework.boot.context.event.ApplicationReadyEvent;
 import org.springframework.context.event.EventListener;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
-import restsdemo.domain.entity.Child;
-import restsdemo.domain.entity.Parent;
-import restsdemo.domain.entity.Reference;
-import restsdemo.repository.ChildRepo;
-import restsdemo.repository.ParentRepo;
-import restsdemo.repository.ReferenceRepo;
 
 import java.util.Arrays;
 
@@ -22,7 +16,7 @@ import static java.util.Arrays.asList;
  */
 @Service
 @RequiredArgsConstructor
-public class StartUp {
+public class DemoData1 {
     
     private final @NonNull ReferenceRepo referenceRepo;
     
@@ -44,12 +38,7 @@ public class StartUp {
         Child child2 = new Child("child2", reference2);
         Child child3 = new Child("child3", reference1);
         Child child4 = new Child("child4", reference2);
-    
-        //        Child child1 = new Child("child1");
-        //        Child child2 = new Child("child2");
-        //        Child child3 = new Child("child3");
-        //        Child child4 = new Child("child4");
-    
+   
         childRepo.save(Arrays.asList(child1, child2, child3, child4));
         childRepo.flush();
     

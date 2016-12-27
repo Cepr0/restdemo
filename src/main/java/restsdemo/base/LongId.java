@@ -1,4 +1,4 @@
-package restsdemo.domain.base;
+package restsdemo.base;
 
 import lombok.EqualsAndHashCode;
 import lombok.Getter;

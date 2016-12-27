@@ -1,9 +1,9 @@
-package restsdemo.domain.entity;
+package restsdemo.example1;
 
 import lombok.*;
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotEmpty;
-import restsdemo.domain.base.LongId;
+import restsdemo.base.LongId;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
