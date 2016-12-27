@@ -6,10 +6,7 @@ import lombok.NonNull;
 import lombok.Setter;
 import restsdemo.domain.base.LongId;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -33,6 +30,8 @@ public class Parent extends LongId {
     
     @NonNull
     @OneToMany(cascade = MERGE)
+    @Column(unique = true)
+    @OrderColumn
     private List<Child> children = new ArrayList<>();
     
     public Parent(String name, Child... children) {

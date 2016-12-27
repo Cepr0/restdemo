@@ -1,6 +1,7 @@
 package restsdemo.domain.entity;
 
 import lombok.*;
+import org.springframework.data.rest.core.config.Projection;
 import restsdemo.domain.base.LongId;
 
 import javax.persistence.*;
@@ -25,5 +26,11 @@ public class Child extends LongId {
     private Reference reference;
     
     public Child(String reference) {
+    }
+
+    @Projection(name = "full", types = Child.class)
+    interface View {
+        String getName();
+        Reference getReference();
     }
 }
