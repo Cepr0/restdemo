@@ -5,7 +5,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 
-import javax.persistence.Column;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
@@ -23,6 +22,9 @@ public class LongId extends BaseEntity<Long> {
 
     @Id
     @GeneratedValue
-    @Column(updatable = false, nullable = false)
-    private final Long id;
+    private Long id;
+    
+    public void setId(Long id) {
+        this.id = id;
+    }
 }
