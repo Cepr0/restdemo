@@ -6,9 +6,10 @@ import org.springframework.context.event.EventListener;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 
-import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Arrays;
+
+import static java.math.BigDecimal.valueOf;
 
 /**
  * @author Cepro, 2016-12-27
@@ -19,14 +20,26 @@ public class DemoData2 {
 
     private final OrderRepo orderRepo;
     
+    private final ProductRepo productRepo;
+    
     @Async
     @EventListener
     public void appReady(ApplicationReadyEvent event) {
         
+        Product p1 = new Product("Product1", valueOf(1.0));
+        Product p2 = new Product("Product2", valueOf(2.0));
+        Product p3 = new Product("Product3", valueOf(3.0));
+        Product p4 = new Product("Product4", valueOf(4.0));
+        Product p5 = new Product("Product5", valueOf(5.0));
+        
+        productRepo.save(Arrays.asList(p1, p2, p3, p4, p5));
+        productRepo.flush();
+        
+        
         Order order = new Order(new ArrayList<>(Arrays.asList(
-                new LineItem(null, "Title1", 1, BigDecimal.valueOf(5.0)),
-                new LineItem(null, "Title2", 2, BigDecimal.valueOf(10.0)),
-                new LineItem(null, "Title3", 3, BigDecimal.valueOf(15.0)))));
+                new LineItem(null, p1, 1),
+                new LineItem(null, p2, 2),
+                new LineItem(null, p3, 3))));
 
         orderRepo.saveAndFlush(order);
     }
