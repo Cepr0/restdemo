@@ -6,10 +6,10 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import restsdemo.base.LongId;
 
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 import java.math.BigDecimal;
-
-import static javax.persistence.AccessType.*;
 
 /**
  * @author Cepro, 2016-12-27
@@ -19,10 +19,10 @@ import static javax.persistence.AccessType.*;
 @Getter
 @Setter
 @Entity
-@Access(PROPERTY)
 @Table(name = "items")
 public class LineItem extends LongId {
     
+    @ManyToOne
     private Order order;
     
     private String title;
@@ -30,9 +30,4 @@ public class LineItem extends LongId {
     private Integer quantity;
     
     private BigDecimal price;
-    
-    @ManyToOne
-    public Order getOrder() {
-        return order;
-    }
 }
