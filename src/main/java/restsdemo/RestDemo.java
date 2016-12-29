@@ -23,8 +23,7 @@ public class RestDemo {
     public RestDemo(ObjectMapper mapper) {
         OBJECT_MAPPER = mapper;
     }
-    
-    
+        
     public static void main(String[] args) {
         SpringApplication.run(RestDemo.class, args);
     }
