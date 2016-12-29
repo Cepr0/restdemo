@@ -35,11 +35,10 @@ public class DemoData2 {
         productRepo.save(Arrays.asList(p1, p2, p3, p4, p5));
         productRepo.flush();
         
-        
         Order order = new Order(new ArrayList<>(Arrays.asList(
-                new LineItem(null, p1, 1),
-                new LineItem(null, p2, 2),
-                new LineItem(null, p3, 3))));
+                new LineItem(p1, 1),
+                new LineItem(p2, 2),
+                new LineItem(p3, 3))));
 
         orderRepo.saveAndFlush(order);
     }

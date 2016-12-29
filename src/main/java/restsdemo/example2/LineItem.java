@@ -1,7 +1,6 @@
 package restsdemo.example2;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -20,7 +19,6 @@ import static java.math.BigDecimal.valueOf;
  * @author Cepro, 2016-12-27
  */
 @NoArgsConstructor
-@AllArgsConstructor
 @Getter
 @Setter
 @Entity
@@ -35,7 +33,12 @@ public class LineItem extends LongId {
     
     private Integer quantity;
     
-    @JsonProperty(value = "name", access = READ_ONLY, index = 0)
+    public LineItem(Product product, Integer quantity) {
+        this.product = product;
+        this.quantity = quantity;
+    }
+    
+    @JsonProperty(value = "name", access = READ_ONLY)
     public String getName() {
         if(product != null) {
             return product.getName();
