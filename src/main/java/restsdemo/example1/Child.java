@@ -28,8 +28,8 @@ public class Child extends LongId {
     public Child(String reference) {
     }
 
-    @Projection(name = "full", types = Child.class)
-    interface View {
+    @Projection(name = "detailed", types = Child.class)
+    interface Detailed {
         String getName();
         Reference getReference();
     }
