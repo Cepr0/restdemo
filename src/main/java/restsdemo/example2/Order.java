@@ -1,5 +1,9 @@
 package restsdemo.example2;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 import restsdemo.base.LongId;
 
 import javax.persistence.*;
@@ -13,38 +17,23 @@ import static restsdemo.example2.Order.Status.PAYMENT_EXPECTED;
 /**
  * @author Cepro, 2016-12-27
  */
+@NoArgsConstructor
+@Getter
+@Setter
 @Entity
 @Access(PROPERTY)
 @Table(name = "orders")
 public class Order extends LongId {
     
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime registered = LocalDateTime.now();
     
     private Status status = PAYMENT_EXPECTED;
     
     private List<LineItem> items = new ArrayList<>();
     
-    public Order() {
-    }
-    
     public Order(List<LineItem> items) {
         setItems(items);
-    }
-    
-    public LocalDateTime getRegistered() {
-        return registered;
-    }
-    
-    public void setRegistered(LocalDateTime registered) {
-        this.registered = registered;
-    }
-    
-    public Status getStatus() {
-        return status;
-    }
-    
-    public void setStatus(Status status) {
-        this.status = status;
     }
     
     @OneToMany(mappedBy = "order", cascade = CascadeType.ALL, orphanRemoval = true)

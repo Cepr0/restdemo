@@ -1,5 +1,9 @@
 package restsdemo.example2;
 
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 import restsdemo.base.LongId;
 
 import javax.persistence.*;
@@ -10,6 +14,10 @@ import static javax.persistence.AccessType.*;
 /**
  * @author Cepro, 2016-12-27
  */
+@NoArgsConstructor
+@AllArgsConstructor
+@Getter
+@Setter
 @Entity
 @Access(PROPERTY)
 @Table(name = "items")
@@ -23,46 +31,8 @@ public class LineItem extends LongId {
     
     private BigDecimal price;
     
-    public LineItem() {
-    }
-    
-    public LineItem(Order order, String title, Integer quantity, BigDecimal price) {
-        this.order = order;
-        this.title = title;
-        this.quantity = quantity;
-        this.price = price;
-    }
-    
     @ManyToOne
     public Order getOrder() {
         return order;
-    }
-    
-    public void setOrder(Order order) {
-        this.order = order;
-    }
-    
-    public String getTitle() {
-        return title;
-    }
-    
-    public void setTitle(String title) {
-        this.title = title;
-    }
-    
-    public Integer getQuantity() {
-        return quantity;
-    }
-    
-    public void setQuantity(Integer quantity) {
-        this.quantity = quantity;
-    }
-    
-    public BigDecimal getPrice() {
-        return price;
-    }
-    
-    public void setPrice(BigDecimal price) {
-        this.price = price;
     }
 }
