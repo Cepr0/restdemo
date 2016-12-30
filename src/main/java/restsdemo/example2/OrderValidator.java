@@ -17,6 +17,6 @@ public class OrderValidator implements Validator {
     @Override
     public void validate(Object o, Errors errors) {
         Order order = (Order) o;
-        System.out.println("!!!!! BeforeCreateOrder Validator " + order.toString());
+        // errors.rejectValue("status","error.test");
     }
 }

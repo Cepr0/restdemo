@@ -49,7 +49,7 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
-            <!--<scope>test</scope>-->
+            <scope>test</scope>
         </dependency>
 
         <!-- JDK 8 DateTime support for Jackson -->
@@ -59,10 +59,10 @@
             <artifactId>jackson-datatype-jsr310</artifactId>
         </dependency>
 
-        <dependency>
-            <groupId>com.fasterxml.jackson.module</groupId>
-            <artifactId>jackson-module-parameter-names</artifactId>
-        </dependency>
+        <!--<dependency>-->
+            <!--<groupId>com.fasterxml.jackson.module</groupId>-->
+            <!--<artifactId>jackson-module-parameter-names</artifactId>-->
+        <!--</dependency>-->
 
         <!-- Database -->
 

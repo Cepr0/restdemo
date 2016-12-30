@@ -5,6 +5,8 @@ import org.springframework.data.rest.core.annotation.HandleBeforeSave;
 import org.springframework.data.rest.core.annotation.RepositoryEventHandler;
 import org.springframework.stereotype.Component;
 
+import static java.math.BigDecimal.valueOf;
+
 /**
  * @author Cepro, 2016-12-29
  */
@@ -14,11 +16,18 @@ public class OrderRepoEventHandler {
     
     @HandleBeforeCreate
     public void handleOrderBeforeCreate(Order order) {
-        System.out.println("!!!!! BeforeCreate Order " + order.toString());
+        setDiscount(order);
     }
     
     @HandleBeforeSave
     public void handleOrderBeforeSave(Order order) {
-        System.out.println("!!!!! BeforeSave Order " + order.toString());
+        setDiscount(order);
+    }
+
+    private void setDiscount(Order order) {
+        final double DISCOUNT = 0.90;
+        order.getItems().forEach(
+                item -> item.setPrice(item.getProduct().getPrice().multiply(valueOf(DISCOUNT)))
+        );
     }
 }
