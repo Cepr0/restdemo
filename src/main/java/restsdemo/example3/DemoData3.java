@@ -5,6 +5,7 @@ import org.springframework.boot.context.event.ApplicationReadyEvent;
 import org.springframework.context.event.EventListener;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -20,6 +21,7 @@ public class DemoData3 {
     
     @Async
     @EventListener
+    @Transactional
     public void appReady(ApplicationReadyEvent event) {
         BookCategory categoryA = new BookCategory("Category A");
         Set bookAs = new HashSet<Book>(){{

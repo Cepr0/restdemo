@@ -6,8 +6,7 @@ import org.springframework.boot.context.event.ApplicationReadyEvent;
 import org.springframework.context.event.EventListener;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
-
-import java.util.Arrays;
+import org.springframework.transaction.annotation.Transactional;
 
 import static java.util.Arrays.asList;
 
@@ -26,6 +25,7 @@ public class DemoData1 {
     
     @Async
     @EventListener
+    @Transactional
     public void appReady(ApplicationReadyEvent event) {
     
         Reference reference1 = new Reference("Description1");
@@ -39,10 +39,11 @@ public class DemoData1 {
         Child child3 = new Child("child3", reference1);
         Child child4 = new Child("child4", reference2);
    
-        childRepo.save(Arrays.asList(child1, child2, child3, child4));
+        childRepo.save(asList(child1, child2, child3, child4));
         childRepo.flush();
     
-        Parent parent = new Parent("parent", child1, child2);
-        parentRepo.save(parent);
+        Parent parent1 = new Parent("parent1", child1, child2);
+        Parent parent2 = new Parent("parent2", child3, child4);
+        parentRepo.save(asList(parent1, parent2));
     }
 }

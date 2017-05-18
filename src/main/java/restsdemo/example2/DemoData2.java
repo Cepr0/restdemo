@@ -5,6 +5,7 @@ import org.springframework.boot.context.event.ApplicationReadyEvent;
 import org.springframework.context.event.EventListener;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -24,6 +25,7 @@ public class DemoData2 {
     
     @Async
     @EventListener
+    @Transactional
     public void appReady(ApplicationReadyEvent event) {
         
         Product p1 = new Product("Product1", valueOf(1.0));

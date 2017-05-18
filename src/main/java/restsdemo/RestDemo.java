@@ -6,7 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
-import org.springframework.scheduling.annotation.EnableAsync;
 
 import java.sql.SQLException;
 
@@ -14,7 +13,7 @@ import java.sql.SQLException;
  * @author Cepro, 2016-12-24
  */
 @SpringBootApplication
-@EnableAsync
+// @EnableAsync
 public class RestDemo {
     
     private static ObjectMapper OBJECT_MAPPER;
