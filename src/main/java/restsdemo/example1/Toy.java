@@ -7,21 +7,21 @@ import restsdemo.base.LongId;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 /**
- * @author Cepro, 2016-12-24
+ *
  */
 @Entity
 @Getter
-@Setter
 @AllArgsConstructor
 @NoArgsConstructor
-@Table(name = "references")
-public class Reference extends LongId {
-    
+@Table(name = "toys")
+public class Toy extends LongId {
+
     @NotBlank
     @Column(nullable = false)
     @Length(min = 3)
-    private String description;
+    private String name;
 }

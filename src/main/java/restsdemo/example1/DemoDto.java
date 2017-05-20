@@ -7,5 +7,6 @@ public interface DemoDto {
 
     String getParentName();
     String getChildName();
+    String getToyName();
     String getDescription();
 }

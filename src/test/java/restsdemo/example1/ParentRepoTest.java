@@ -23,7 +23,7 @@ public class ParentRepoTest {
     @Test
     public void getDto() throws Exception {
     
-        List<DemoDto> dtos = parentRepo.getDto(2L);
+        List<DemoDto> dtos = parentRepo.getDto(3L);
         dtos.forEach(System.out::println);
     }
 }
