@@ -18,8 +18,8 @@ import javax.persistence.Entity;
 @AllArgsConstructor
 @RestResource(rel = "criteria", path = "criteria")
 @Entity
-public class NameCriterion extends Criterion {
+public class TitleCriterion extends Criterion {
 
     @NotBlank
-    private String name = "Undefine";
+    private String title = "Undefine";
 }

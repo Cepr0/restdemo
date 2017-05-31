@@ -6,6 +6,6 @@ import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 /**
  *
  */
-@RepositoryRestResource//(path = "criterions", collectionResourceRel = "criterions", itemResourceRel = "criterion")
-public interface CriterionRepository extends JpaRepository<NameCriterion, Long> {
+@RepositoryRestResource(path = "criteria", collectionResourceRel = "criteria", itemResourceRel = "criterion")
+public interface CriterionRepository extends JpaRepository<Criterion, Long> {
 }

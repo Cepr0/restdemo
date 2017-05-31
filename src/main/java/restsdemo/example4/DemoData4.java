@@ -23,6 +23,7 @@ public class DemoData4 {
     @Transactional
     public void appReady(ApplicationReadyEvent event) {
 
-        repository.save(asList(new NameCriterion("criterion1"), new NameCriterion("criterion2")));
+        repository.save(asList(new NameCriterion("name1"), new NameCriterion("name2")));
+        repository.save(asList(new TitleCriterion("title1"), new TitleCriterion("title2")));
     }
 }
