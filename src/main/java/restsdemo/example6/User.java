@@ -5,6 +5,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import restsdemo.base.LongId;
 
+import javax.persistence.Column;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.OneToMany;
@@ -25,6 +26,7 @@ public class User extends LongId {
     private final String name;
 
     @ElementCollection
+    @Column(name = "role")
     private final List<Role> roles = new ArrayList<>();
     
     @OneToMany(mappedBy = "user")
