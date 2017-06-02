@@ -1,6 +1,5 @@
 package restsdemo.example7;
 
-import lombok.NoArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -9,7 +8,6 @@ import javax.persistence.PreRemove;
 /**
  *
  */
-@NoArgsConstructor
 @Component
 public class PersonListener {
     
