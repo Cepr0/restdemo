@@ -10,6 +10,6 @@ import java.util.List;
  */
 public interface UserRepository extends JpaRepository<User, Long> {
     
-    @Query("select distinct u from User u join u.orderrs o where u.roles = ?1 and (o.state is null or o.state = ?2)")
+    @Query("select distinct u from User u join u.orderrs o join u.roles r where r = ?1 and (o.state is null or o.state = ?2)")
     List<User> getUsers(User.Role role, Orderr.State state);
 }
