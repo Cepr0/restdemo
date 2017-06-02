@@ -2,22 +2,20 @@ package restsdemo.example6;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import restsdemo.base.LongId;
 
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
-import javax.persistence.Enumerated;
 import javax.persistence.OneToMany;
 import java.util.ArrayList;
 import java.util.List;
 
-import static javax.persistence.EnumType.STRING;
+import static java.util.Arrays.asList;
 
 /**
  *
  */
-@RequiredArgsConstructor
 @NoArgsConstructor(force = true)
 @Getter
 @Setter
@@ -25,12 +23,18 @@ import static javax.persistence.EnumType.STRING;
 public class User extends LongId {
     
     private final String name;
-    
-    private final Role role;
+
+    @ElementCollection
+    private final List<Role> roles = new ArrayList<>();
     
     @OneToMany(mappedBy = "user")
     private final List<Orderr> orderrs = new ArrayList<>();
-    
+
+    public User(String name, Role... roles) {
+        this.name = name;
+        this.roles.addAll(asList(roles));
+    }
+
     public enum Role {
         ROLE1, ROLE2
     }
