@@ -24,5 +24,5 @@
 hs_err_pid*
 
 !/db/backup.sql
-db/data.mv.db
+db/*.db
 /db/backup.zip
