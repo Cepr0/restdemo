@@ -28,7 +28,7 @@ public class DemoData6 {
     public void appReady(ApplicationReadyEvent event) {
         
         User user1 = new User("user1", ROLE1);
-        User user2 = new User("user2", ROLE2);
+        User user2 = new User("user2", ROLE1, ROLE2);
         
         userRepository.save(asList(user1, user2));
         

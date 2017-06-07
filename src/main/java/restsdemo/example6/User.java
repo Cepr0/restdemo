@@ -9,8 +9,8 @@ import javax.persistence.Column;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.OneToMany;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 import static java.util.Arrays.asList;
 
@@ -27,10 +27,10 @@ public class User extends LongId {
 
     @ElementCollection
     @Column(name = "role")
-    private final List<Role> roles = new ArrayList<>();
-    
+    private final Set<Role> roles = new HashSet<>();
+
     @OneToMany(mappedBy = "user")
-    private final List<Orderr> orderrs = new ArrayList<>();
+    private final Set<Orderr> orderrs = new HashSet<>();
 
     public User(String name, Role... roles) {
         this.name = name;
