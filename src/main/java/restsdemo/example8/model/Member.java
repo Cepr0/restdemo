@@ -47,4 +47,10 @@ public class Member extends LongId {
             this(null, null);
         }
     }
+    
+    public interface MemberSkillLevel {
+        Member getMember();
+        Skill getSkill();
+        Integer getLevel();
+    }
 }

@@ -16,9 +16,6 @@ import java.util.stream.Stream;
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
 
-/**
- *
- */
 @RunWith(SpringRunner.class)
 @SpringBootTest
 @Transactional
@@ -37,12 +34,24 @@ public class ProjectRepoTest {
     @Test
     public void getProjectMembersByProject() throws Exception {
         Stream<Member> members = projectRepo.getProjectMembersByProject(projectRepo.findOne(1L));
-        assertThat(members.count(), is(5));
+        assertThat(members.count(), is(5L));
     }
     
     @Test
     public void getMembersWithSkillsByProject() throws Exception {
-        Map<Member, Set<Member.MemberSkill>> members = projectRepo.getMembersWithSkillsByProject(projectRepo.findOne(1L));
+        Map<Member, Set<Member.MemberSkill>> members = projectRepo.getMembersWithMemberSkillsByProject(projectRepo.findOne(1L));
+        members.forEach((key, value) -> assertThat(value.size(), is(3)));
+    }
+    
+    @Test
+    public void getMembersSkillsAndLevelsByProject() throws Exception {
+        Stream<Member.MemberSkillLevel> records = projectRepo.getMembersSkillsAndLevelsByProject(projectRepo.findOne(1L));
+        assertThat(records.count(), is(15L));
+    }
+    
+    @Test
+    public void getSkillAndLevelByMember() throws Exception {
+        Map<Member, Set<Member.MemberSkill>> members = projectRepo.getSkillAndLevelByMember(projectRepo.findOne(1L));
         members.forEach((key, value) -> assertThat(value.size(), is(3)));
     }
 }
