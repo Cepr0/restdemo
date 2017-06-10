@@ -1,4 +1,4 @@
-package restsdemo.example8;
+package restsdemo.example8.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -8,15 +8,12 @@ import restsdemo.base.LongId;
 
 import javax.persistence.Entity;
 
-/**
- *
- */
 @NoArgsConstructor(force = true)
 @AllArgsConstructor
 @Getter
 @Setter
 @Entity
-public class Skill extends LongId {
+public class Role extends LongId {
 
     private String name;
 }
