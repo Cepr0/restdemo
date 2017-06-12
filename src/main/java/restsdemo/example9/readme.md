@@ -1,0 +1,1 @@
+Code example for [Stackoverflow question](https://ru.stackoverflow.com/q/678500/).
