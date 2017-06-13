@@ -21,7 +21,9 @@ public class DemoData9 {
     
     private final @NonNull WorkerRepo workerRepo;
     private final @NonNull PositionRepo positionRepo;
-    
+    private final @NonNull BiWorkerRepo biWorkerRepo;
+    private final @NonNull BiPositionRepo biPositionRepo;
+
     @Async
     @EventListener
     @Transactional
@@ -35,10 +37,17 @@ public class DemoData9 {
         Worker worker2 = new Worker("worker2");
         worker2.getPositions().addAll(asList(positions.get(0), positions.get(1)));
     
-        workerRepo.save(asList(
-                // new Worker("worker1").addPositions(positions.get(0)),
-                // new Worker("worker2").addPositions(positions.get(0), positions.get(1))
-                worker1, worker2
-        ));
+        workerRepo.save(asList(worker1, worker2));
+
+        List<BiPosition> biPositions = biPositionRepo.save(asList(new BiPosition("position1"), new BiPosition("position2")));
+
+        BiWorker biWorker1 = new BiWorker("worker1");
+        biWorker1.getPositions().add(biPositions.get(0));
+
+        BiWorker biWorker2 = new BiWorker("worker2");
+        biWorker2.getPositions().addAll(asList(biPositions.get(0), biPositions.get(1)));
+
+        biWorkerRepo.save(asList(biWorker1, biWorker2));
+
     }
 }
