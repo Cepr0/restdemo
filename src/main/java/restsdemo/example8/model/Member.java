@@ -1,5 +1,7 @@
 package restsdemo.example8.model;
 
+import com.fasterxml.jackson.annotation.JsonUnwrapped;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import lombok.*;
 import restsdemo.base.LongId;
 
@@ -22,7 +24,8 @@ import static java.util.Arrays.asList;
 public class Member extends LongId {
 
     private String name;
-
+    
+    @JsonUnwrapped // https://stackoverflow.com/a/44719861
     @ElementCollection
     private final Set<MemberSkill> skills = new HashSet<>();
     
@@ -34,6 +37,7 @@ public class Member extends LongId {
     @Value
     @RequiredArgsConstructor
     @Embeddable
+    @JsonSerialize(using = SkillSerializer.class) // https://stackoverflow.com/a/44719861
     public static class MemberSkill {
     
         @ManyToOne(optional = false)
