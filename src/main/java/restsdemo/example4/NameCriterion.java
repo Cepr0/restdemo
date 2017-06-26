@@ -16,7 +16,7 @@ import javax.persistence.Entity;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@RestResource(rel = "criteria", path = "criteria")
+// @RestResource(rel = "criteria", path = "criteria")
 @Entity
 public class NameCriterion extends Criterion {
 

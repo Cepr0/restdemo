@@ -5,7 +5,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hibernate.validator.constraints.NotBlank;
-import org.springframework.data.rest.core.annotation.RestResource;
 
 import javax.persistence.Entity;
 
@@ -16,7 +15,7 @@ import javax.persistence.Entity;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@RestResource(rel = "criteria", path = "criteria")
+// @RestResource(rel = "criteria", path = "criteria")
 @Entity
 public class TitleCriterion extends Criterion {
 
