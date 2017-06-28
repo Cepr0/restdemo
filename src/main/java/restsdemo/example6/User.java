@@ -3,6 +3,7 @@ package restsdemo.example6;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.springframework.data.rest.core.annotation.Description;
 import restsdemo.base.LongId;
 
 import javax.persistence.Column;
@@ -23,6 +24,7 @@ import static java.util.Arrays.asList;
 @Entity
 public class User extends LongId {
     
+    @Description("User name (from annotation)")
     private final String name;
 
     @ElementCollection
