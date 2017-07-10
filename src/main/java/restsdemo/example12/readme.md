@@ -1,0 +1,1 @@
+Code example for Data Jpa and Specification (see example12 tests).
