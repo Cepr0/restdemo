@@ -48,6 +48,6 @@ public class FigureController {
     @ExceptionHandler
     public void exceptionHandler(Exception e) throws Exception {
         LOG.error(e.getMessage());
-        throw new Exception(e);
+        throw e;
     }
 }
