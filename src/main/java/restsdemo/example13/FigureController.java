@@ -1,6 +1,7 @@
 package restsdemo.example13;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.autoconfigure.web.ErrorAttributes;
 import org.springframework.hateoas.Resource;
 import org.springframework.http.ResponseEntity;
@@ -17,8 +18,10 @@ import static org.springframework.http.ResponseEntity.ok;
  * @author Cepro
  *         2017-07-11
  */
+@Slf4j
 @RequiredArgsConstructor
 @RestController
+@ControllerAdvice(basePackageClasses = {FigureController.class})
 @RequestMapping("/figures")
 public class FigureController {
 
@@ -40,5 +43,11 @@ public class FigureController {
         figure.setHeight(figureUpdated.getHeight());
         figure.setWidth(figureUpdated.getWidth());
         return ok(repo.save(figure));
+    }
+    
+    @ExceptionHandler
+    public void exceptionHandler(Exception e) throws Exception {
+        LOG.error(e.getMessage());
+        throw new Exception(e);
     }
 }
