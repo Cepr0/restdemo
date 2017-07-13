@@ -17,6 +17,8 @@ public class OrderValidator implements Validator {
     @Override
     public void validate(Object o, Errors errors) {
         Order order = (Order) o;
-        // errors.rejectValue("status","error.test");
+        if (!(order.getStatus() == Order.Status.PAYMENT_EXPECTED || order.getStatus() == Order.Status.PREPARING)) {
+            errors.rejectValue("status", "order.status.error");
+        }
     }
 }
