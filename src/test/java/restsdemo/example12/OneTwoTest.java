@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.domain.Specification;
 import restsdemo.BaseTest;
 
-import javax.persistence.criteria.*;
+import javax.persistence.criteria.Join;
 import java.util.List;
 import java.util.Set;
 

@@ -1,10 +1,12 @@
 package restsdemo.example2;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.springframework.data.rest.core.config.Projection;
+import org.springframework.hateoas.core.Relation;
 import restsdemo.base.LongId;
 
 import javax.persistence.Entity;
@@ -36,5 +38,18 @@ public class Product extends LongId {
         String getName();
         BigDecimal getPrice();
         ProductCategory getCategory();
+    }
+
+    @Relation(value = "product", collectionRelation = "products")
+    public interface WithQuantity {
+
+        @JsonProperty("product")
+        Product getProduct();
+
+        @JsonProperty("quantity")
+        Integer getQuantity();
+
+        @JsonProperty("total")
+        BigDecimal getTotal();
     }
 }

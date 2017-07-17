@@ -7,6 +7,7 @@ import lombok.Setter;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.querydsl.QueryDslPredicateExecutor;
 import restsdemo.base.LongId;
 
 import javax.persistence.Entity;
@@ -38,7 +39,7 @@ public class One extends LongId {
         this.twos.addAll(asList(twos));
     }
     
-    public interface Repo extends JpaRepository<One, Long>, JpaSpecificationExecutor<One> {
+    public interface Repo extends JpaRepository<One, Long>, JpaSpecificationExecutor<One>, QueryDslPredicateExecutor<One> {
         List<One> findAllByTwosContains(Two two);
         
         @Query("select t from One o join o.twos t where o.name = ?1")
