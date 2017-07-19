@@ -1,7 +1,5 @@
 package restsdemo.example2;
 
-import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -14,8 +12,6 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import java.math.BigDecimal;
 
-import static com.fasterxml.jackson.annotation.JsonInclude.Include.NON_NULL;
-
 /**
  * @author Cepro, 2016-12-29
  */
@@ -25,7 +21,6 @@ import static com.fasterxml.jackson.annotation.JsonInclude.Include.NON_NULL;
 @Setter
 @Entity
 @Table(name = "products")
-@JsonInclude(NON_NULL)
 public class Product extends LongId {
     
     private String name;
@@ -43,29 +38,15 @@ public class Product extends LongId {
         ProductCategory getCategory();
     }
 
-    @JsonInclude(NON_NULL)
     public interface WithQuantity {
-
-        @JsonProperty("product")
         Product getProduct();
-
-        @JsonProperty("quantity")
         Integer getQuantity();
-
-        @JsonProperty("total")
         BigDecimal getTotal();
     }
 
-    @JsonInclude(NON_NULL)
     public interface Short {
-
-        @JsonProperty("name")
         Product getName();
-
-        @JsonProperty("quantity")
         Integer getQuantity();
-
-        @JsonProperty("total")
         BigDecimal getTotal();
     }
 }
