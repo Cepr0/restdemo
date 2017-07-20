@@ -29,6 +29,7 @@ public class ProductCategory extends LongId {
 
     private String name;
 
+//    @JsonBackReference
     @OneToMany(mappedBy = "category")
     private final Set<Product> products = new HashSet<>();
 
