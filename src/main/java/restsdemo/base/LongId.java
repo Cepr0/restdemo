@@ -16,15 +16,11 @@ import javax.persistence.MappedSuperclass;
 @MappedSuperclass
 @Getter
 @ToString
-@NoArgsConstructor(force = true)
+@NoArgsConstructor
 @EqualsAndHashCode(callSuper = false)
 public class LongId extends BaseEntity<Long> {
 
     @Id
     @GeneratedValue
     private Long id;
-    
-    public void setId(Long id) {
-        this.id = id;
-    }
 }
