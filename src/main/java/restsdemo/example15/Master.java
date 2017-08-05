@@ -27,10 +27,11 @@ public class Master {
     @OneToMany(mappedBy = "master", cascade = {PERSIST, MERGE})
     private List<Slave> slaves = new ArrayList<>();
     
-    public void setSlaves(List<Slave> slaves) {
+    public Master setSlaves(List<Slave> slaves) {
         slaves.forEach(slave -> slave.setMaster(this)); // link new slaves to this master
         this.slaves.forEach(slave -> slave.setMaster(null)); // unlink prev slaves
         this.slaves.clear();
         this.slaves.addAll(slaves);
+        return this;
     }
 }
