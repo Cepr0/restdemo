@@ -12,7 +12,8 @@ import java.util.Optional;
 @RepositoryRestResource
 public interface MasterRepo extends JpaRepository<Master, Long> {
     
+    @SuppressWarnings("SpringDataRepositoryMethodReturnTypeInspection")
     Optional<MasterDto> findById(Long id);
-    
-    
+
+    Optional<Master> findByName(String name);
 }
