@@ -1,0 +1,1 @@
+Code example for [this](https://stackoverflow.com/q/45546867) question
