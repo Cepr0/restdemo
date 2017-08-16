@@ -9,8 +9,11 @@ import org.springframework.boot.autoconfigure.web.DefaultErrorAttributes;
 import org.springframework.boot.autoconfigure.web.ErrorAttributes;
 import org.springframework.context.annotation.Bean;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
+import org.springframework.data.rest.core.config.RepositoryRestConfiguration;
+import org.springframework.data.rest.webmvc.config.RepositoryRestConfigurerAdapter;
 import org.springframework.validation.FieldError;
 import org.springframework.web.context.request.RequestAttributes;
+import restsdemo.example19.Branch;
 
 import java.sql.SQLException;
 import java.util.List;
@@ -68,6 +71,17 @@ public class RestDemo {
                     }
                 }
                 return errorAttributes;
+            }
+        };
+    }
+
+    @Bean
+    public RepositoryRestConfigurerAdapter repositoryRestConfigurerAdapter() {
+        return new RepositoryRestConfigurerAdapter() {
+            @Override
+            public void configureRepositoryRestConfiguration(RepositoryRestConfiguration config) {
+                config.exposeIdsFor(Branch.class);
+                super.configureRepositoryRestConfiguration(config);
             }
         };
     }
