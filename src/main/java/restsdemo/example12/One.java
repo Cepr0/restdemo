@@ -8,6 +8,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.querydsl.QueryDslPredicateExecutor;
+import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 import restsdemo.base.LongId;
 
 import javax.persistence.Entity;
@@ -38,7 +39,8 @@ public class One extends LongId {
         this.name = name;
         this.twos.addAll(asList(twos));
     }
-    
+
+    @RepositoryRestResource
     public interface Repo extends JpaRepository<One, Long>, JpaSpecificationExecutor<One>, QueryDslPredicateExecutor<One> {
         List<One> findAllByTwosContains(Two two);
         
