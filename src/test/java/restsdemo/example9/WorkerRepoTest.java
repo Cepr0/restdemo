@@ -9,12 +9,9 @@ import org.springframework.transaction.annotation.Transactional;
 import restsdemo.BaseTest;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
-import static org.hamcrest.CoreMatchers.containsString;
-import static org.hamcrest.CoreMatchers.is;
-import static org.hamcrest.Matchers.contains;
-import static org.junit.Assert.assertThat;
+import static java.util.stream.Collectors.toList;
+import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  *
@@ -32,20 +29,20 @@ public class WorkerRepoTest extends BaseTest {
     public void findByPositions() throws Exception {
         Position position = positionRepo.getOne(1L);
         List<Worker> workers = workerRepo.findByPositions(position);
-        assertThat(workers.size(), is(2));
+        assertThat(workers).hasSize(2);
     }
 
     @Test
     public void findByName() throws Exception {
-        List<Worker> workers = workerRepo.findByName("worker2");
-        List<String> titles = workers.get(0).getPositions().stream().map(Position::getTitle).collect(Collectors.toList());
-        assertThat(titles, contains("position1", "position2"));
+        List<Worker> workers = workerRepo.findDistinctByName("worker2");
+        assertThat(workers).hasSize(1);
+        List<String> titles = workers.get(0).getPositions().stream().map(Position::getTitle).collect(toList());
+        assertThat(titles).containsOnly("position1", "position2");
     }
 
     @Test
     public void findWorkerByName() throws Exception {
         Worker worker2 = workerRepo.findWorkerByName("worker2");
-        assertThat(worker2.getPositions().size(), is(2));
-
+        assertThat(worker2.getPositions()).hasSize(2);
     }
 }
