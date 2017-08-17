@@ -8,6 +8,11 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import restsdemo.base.LongId;
 
 import javax.persistence.Entity;
+import javax.persistence.OneToMany;
+import java.util.HashSet;
+import java.util.Set;
+
+import static java.util.Arrays.asList;
 
 /**
  * @author Cepro
@@ -21,7 +26,15 @@ import javax.persistence.Entity;
 public class Two extends LongId {
     
     private String name;
-    
+
+    @OneToMany
+    private final Set<Three> threes = new HashSet<>();
+
+    public Two(String name, Three... threes) {
+        this.name = name;
+        this.threes.addAll(asList(threes));
+    }
+
     public interface Repo extends JpaRepository<Two, Long> {
     }
 }

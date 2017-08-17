@@ -3,10 +3,12 @@ package restsdemo.example12;
 import org.junit.Before;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.domain.Specification;
 import restsdemo.BaseTest;
 
 import javax.persistence.criteria.Join;
+import javax.persistence.criteria.Predicate;
 import java.util.List;
 import java.util.Set;
 
@@ -24,14 +26,25 @@ public class OneTwoTest extends BaseTest {
     
     @Autowired
     private Two.Repo twoRepo;
-    
+
+    @Autowired
+    private Three.Repo threeRepo;
+
     @Before
     public void setUp() throws Exception {
-        
+
+        List<Three> threes = threeRepo.save(asList(
+                new Three("three1"),
+                new Three("three2"),
+                new Three("three3"),
+                new Three("three4"),
+                new Three("three5")
+        ));
+
         List<Two> twos = twoRepo.save(asList(
-                new Two("two1"),
+                new Two("two1", threes.get(0), threes.get(1), threes.get(2)),
                 new Two("two2"),
-                new Two("two3"),
+                new Two("two3", threes.get(3), threes.get(4)),
                 new Two("two4"),
                 new Two("two5")
         ));
@@ -40,6 +53,7 @@ public class OneTwoTest extends BaseTest {
                 new One("one1", twos.get(0), twos.get(1)),
                 new One("one2", twos.get(2), twos.get(3), twos.get(4))
         ));
+
         oneRepo.flush();
     }
     
@@ -101,5 +115,14 @@ public class OneTwoTest extends BaseTest {
         ones = oneRepo.findAll(likeOneNameAndTwoName);
         assertThat(ones).hasSize(1);
         assertThat(ones.get(0).getName()).isEqualTo("one1");
+
+        Specification<One> twoJoins = (one, query, cb) ->  {
+            Join<One, Two> twos = one.join("twos");
+            Join<Two, Three> threes = twos.join("threes");
+            return threes.get("name").in(asList("three1", "three5"));
+        };
+
+        ones = oneRepo.findAll(twoJoins, new Sort(Sort.Direction.DESC, "name"));
+        assertThat(ones).hasSize(2);
     }
 }
