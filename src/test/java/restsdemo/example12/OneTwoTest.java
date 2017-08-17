@@ -3,6 +3,8 @@ package restsdemo.example12;
 import org.junit.Before;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.domain.Specification;
 import restsdemo.BaseTest;
@@ -14,6 +16,7 @@ import java.util.Set;
 
 import static java.util.Arrays.asList;
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.springframework.data.domain.Sort.Direction.*;
 
 /**
  * @author Cepro
@@ -122,7 +125,18 @@ public class OneTwoTest extends BaseTest {
             return threes.get("name").in(asList("three1", "three5"));
         };
 
-        ones = oneRepo.findAll(twoJoins, new Sort(Sort.Direction.DESC, "name"));
+        ones = oneRepo.findAll(twoJoins, new Sort(DESC, "name"));
         assertThat(ones).hasSize(2);
+
+        PageRequest pageRequest = new PageRequest(0, 2, new Sort(Sort.Direction.DESC, "name"));
+        Page<One> onePage = oneRepo.findAll(twoJoins, pageRequest);
+        assertThat(onePage.getContent()).hasSize(2);
+    }
+
+    @Test
+    public void getOnes() throws Exception {
+        PageRequest pageRequest = new PageRequest(0, 2, new Sort(Sort.Direction.DESC, "name"));
+        Page<One> onePage = oneRepo.getOnes("three5", pageRequest);
+        assertThat(onePage.getContent()).hasSize(1);
     }
 }

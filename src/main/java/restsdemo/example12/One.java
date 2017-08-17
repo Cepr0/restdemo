@@ -4,6 +4,8 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.data.jpa.repository.Query;
@@ -46,5 +48,8 @@ public class One extends LongId {
         
         @Query("select t from One o join o.twos t where o.name = ?1")
         List<Two> getTwosByOneName(String oneName);
+
+        @Query("select o from One o join o.twos t join t.threes r where r.name = ?1")
+        Page<One> getOnes(String threeName, Pageable pageable);
     }
 }
