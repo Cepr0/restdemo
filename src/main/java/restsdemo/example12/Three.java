@@ -16,7 +16,7 @@ import javax.persistence.Entity;
 @Entity
 public class Three extends LongId {
 
-    private String name;
+    private String title;
 
     public interface Repo extends JpaRepository<Three, Long> {
     }

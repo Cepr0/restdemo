@@ -9,8 +9,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.domain.Specification;
 import restsdemo.BaseTest;
 
-import javax.persistence.criteria.Join;
-import javax.persistence.criteria.Predicate;
+import javax.persistence.criteria.*;
 import java.util.List;
 import java.util.Set;
 
@@ -119,16 +118,41 @@ public class OneTwoTest extends BaseTest {
         assertThat(ones).hasSize(1);
         assertThat(ones.get(0).getName()).isEqualTo("one1");
 
-        Specification<One> twoJoins = (one, query, cb) ->  {
+        Specification<One> twoJoins = (one, query, cb) -> {
+            Join<One, Two> twos = one.join("twos");
+            twos.alias("t");
+            Join<Two, Three> threes = twos.join("threes");
+            threes.alias("r");
+//            query.orderBy(cb.desc(twos.get("name")));
+            query.orderBy(cb.desc(one.get("name")), cb.desc(twos.get("name")), cb.desc(threes.get("title")));
+            return threes.get("title").in("three1", "three5");
+        };
+
+        Specification<One> pOne = (one, query, cb) -> {
+            query.orderBy(cb.desc(one.get("name")));
+            return cb.like(one.get("name"), "%one%");
+        };
+
+        Specification<One> pTwo = (one, query, cb) -> {
+            Join<One, Two> twos = one.join("twos");
+            query.orderBy(cb.desc(twos.get("name")));
+            return cb.like(twos.get("name"), "%two%");
+        };
+
+        Specification<One> pThree = (one, query, cb) -> {
             Join<One, Two> twos = one.join("twos");
             Join<Two, Three> threes = twos.join("threes");
-            return threes.get("name").in(asList("three1", "three5"));
+            query.orderBy(cb.desc(threes.get("title")));
+            return cb.like(threes.get("title"), "%three%");
         };
+
+        ones = oneRepo.findAll(pOne);
+        assertThat(ones).hasSize(2);
 
         ones = oneRepo.findAll(twoJoins, new Sort(DESC, "name"));
         assertThat(ones).hasSize(2);
 
-        PageRequest pageRequest = new PageRequest(0, 2, new Sort(Sort.Direction.DESC, "name"));
+        PageRequest pageRequest = new PageRequest(0, 2/*, new Sort(Sort.Direction.DESC, "title")*/);
         Page<One> onePage = oneRepo.findAll(twoJoins, pageRequest);
         assertThat(onePage.getContent()).hasSize(2);
     }
