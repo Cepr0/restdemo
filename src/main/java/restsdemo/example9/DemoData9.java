@@ -29,15 +29,25 @@ public class DemoData9 {
     @Transactional
     public void appReady(ApplicationReadyEvent event) {
     
-        List<Position> positions = positionRepo.save(asList(new Position("position1"), new Position("position2")));
-    
-        Worker worker1 = new Worker("worker1");
-        worker1.getPositions().add(positions.get(0));
-        
-        Worker worker2 = new Worker("worker2");
-        worker2.getPositions().addAll(asList(positions.get(0), positions.get(1)));
-    
-        workerRepo.save(asList(worker1, worker2));
+        List<Position> positions = positionRepo.save(asList(
+            new Position("position1"),
+            new Position("position2"),
+            new Position("position3"),
+            new Position("position4"),
+            new Position("position5"),
+            new Position("position6"),
+            new Position("position7"),
+            new Position("position8"),
+            new Position("position9"),
+            new Position("position10")
+        ));
+
+        workerRepo.save(asList(
+            new Worker("worker1", positions.get(0), positions.get(1), positions.get(2)),
+            new Worker("worker2", positions.get(0), positions.get(3)),
+            new Worker("worker3", positions.get(4), positions.get(5)),
+            new Worker("worker4", positions.get(1), positions.get(4))
+        ));
 
         List<BiPosition> biPositions = biPositionRepo.save(asList(new BiPosition("position1"), new BiPosition("position2")));
 

@@ -10,11 +10,13 @@ import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
 
+import static java.util.Arrays.asList;
+
 /**
  *
  */
 @NoArgsConstructor(force = true)
-@AllArgsConstructor
+// @AllArgsConstructor
 @Getter
 @Setter
 @Entity
@@ -24,8 +26,13 @@ public class Worker extends LongId {
     
     @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private final Set<Position> positions = new HashSet<>();
-    
-    // public Worker addPositions(Position... positions) {
+
+    public Worker(String name, Position... positions) {
+        this.name = name;
+        this.positions.addAll(asList(positions));
+    }
+
+// public Worker addPositions(Position... positions) {
     //
     //     for (Position position : positions) {
     //         position.getWorkers().add(this);

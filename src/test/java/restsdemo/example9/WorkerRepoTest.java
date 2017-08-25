@@ -10,6 +10,7 @@ import restsdemo.BaseTest;
 
 import java.util.List;
 
+import static java.util.Arrays.asList;
 import static java.util.stream.Collectors.toList;
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -44,5 +45,16 @@ public class WorkerRepoTest extends BaseTest {
     public void findWorkerByName() throws Exception {
         Worker worker2 = workerRepo.findWorkerByName("worker2");
         assertThat(worker2.getPositions()).hasSize(2);
+    }
+
+    @Test
+    public void findDistinctByPositionsContains() throws Exception {
+        List<Position> positions = positionRepo.findAll();
+        List<Worker> workers = workerRepo.findDistinctByPositionsIn(asList(
+            positions.get(0),
+            positions.get(1)
+        ));
+
+        assertThat(workers).hasSize(3);
     }
 }

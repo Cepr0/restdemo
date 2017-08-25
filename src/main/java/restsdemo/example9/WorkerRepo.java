@@ -20,4 +20,6 @@ public interface WorkerRepo extends JpaRepository<Worker, Long> {
 
     @Query("select w from Worker w join fetch w.positions where w.name = ?1")
     Worker findWorkerByName(String name);
+
+    List<Worker> findDistinctByPositionsIn(List<Position> positions);
 }
