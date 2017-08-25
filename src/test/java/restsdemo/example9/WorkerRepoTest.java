@@ -57,4 +57,17 @@ public class WorkerRepoTest extends BaseTest {
 
         assertThat(workers).hasSize(3);
     }
+
+    @Test
+    public void findIfSubsetExists() throws Exception {
+
+        List<Position> positions = positionRepo.findAll();
+        List<Worker> workers = workerRepo.findIfSubsetExists(asList(
+            positions.get(0),
+            positions.get(1)
+        ));
+
+        assertThat(workers).hasSize(3);
+
+    }
 }

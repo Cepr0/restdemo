@@ -43,10 +43,11 @@ public class DemoData9 {
         ));
 
         workerRepo.save(asList(
-            new Worker("worker1", positions.get(0), positions.get(1), positions.get(2)),
+            new Worker("worker1", positions.get(0), positions.get(1)),
             new Worker("worker2", positions.get(0), positions.get(3)),
             new Worker("worker3", positions.get(4), positions.get(5)),
-            new Worker("worker4", positions.get(1), positions.get(4))
+            new Worker("worker4", positions.get(1), positions.get(4), positions.get(0)),
+            new Worker("worker5", positions.get(0), positions.get(1), positions.get(6))
         ));
 
         List<BiPosition> biPositions = biPositionRepo.save(asList(new BiPosition("position1"), new BiPosition("position2")));
