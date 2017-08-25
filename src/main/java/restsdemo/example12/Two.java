@@ -8,6 +8,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import restsdemo.base.LongId;
 
 import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import java.util.HashSet;
 import java.util.Set;
@@ -28,6 +29,7 @@ public class Two extends LongId {
     private String name;
 
     @OneToMany
+    @JoinColumn(name = "two_id")
     private final Set<Three> threes = new HashSet<>();
 
     public Two(String name, Three... threes) {

@@ -14,6 +14,7 @@ import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 import restsdemo.base.LongId;
 
 import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import java.util.HashSet;
 import java.util.List;
@@ -35,6 +36,7 @@ public class One extends LongId {
     private String name;
     
     @OneToMany
+    @JoinColumn(name = "one_id")
     private final Set<Two> twos = new HashSet<>();
     
     public One(String name, Two... twos) {
@@ -51,5 +53,8 @@ public class One extends LongId {
 
         @Query("select o from One o join o.twos t join t.threes r where r.title = ?1")
         Page<One> getOnes(String threeName, Pageable pageable);
+
+        @Query("select o from One o join fetch o.twos t")
+        List<One> getOnesAdTwos();
     }
 }
