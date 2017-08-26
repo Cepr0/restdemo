@@ -52,9 +52,9 @@ public class OneTwoTest extends BaseTest {
 		));
 
 		oneRepo.save(asList(
-				new One("one1", twos.get(0), twos.get(1)),
-				new One("one2", twos.get(2), twos.get(3), twos.get(4)),
-				new One("one3")
+				new One("mr.","one1", twos.get(0), twos.get(1)),
+				new One("mr.","one2", twos.get(2), twos.get(3), twos.get(4)),
+				new One("ms.", "one3")
 		));
 
 		oneRepo.flush();
@@ -187,5 +187,22 @@ public class OneTwoTest extends BaseTest {
 		//assertThat(twos0.size()).isGreaterThan(0);
 		String name = twos0.iterator().next().getName();
 		assertThat(ones.get(1).getTwos().size()).isGreaterThan(0);
+	}
+
+	@Test
+	public void getWithTitleAndName() throws Exception {
+
+		List<One> list = oneRepo.getWithTitleAndName("mr.", "one");
+		assertThat(list).hasSize(2);
+
+		Specification<One> p = getOneSpecification("mr.", "one");
+		assertThat(oneRepo.findAll(p)).hasSize(2);
+	}
+
+	private Specification<One> getOneSpecification(String title, String name) {
+		return (ones, query, cb) -> cb.like(
+				cb.concat(ones.get("title"), cb.concat(" ", ones.get("name"))),
+				"%" + title + " " + name + "%"
+		);
 	}
 }

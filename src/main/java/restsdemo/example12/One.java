@@ -32,14 +32,16 @@ import static java.util.Arrays.asList;
 @Setter
 @Entity
 public class One extends LongId {
-    
+
+    private String title;
     private String name;
     
     @OneToMany
     @JoinColumn(name = "one_id")
     private final Set<Two> twos = new HashSet<>();
     
-    public One(String name, Two... twos) {
+    public One(String title, String name, Two... twos) {
+        this.title = title;
         this.name = name;
         this.twos.addAll(asList(twos));
     }
@@ -56,5 +58,8 @@ public class One extends LongId {
 
         @Query("select o from One o join fetch o.twos t")
         List<One> getOnesAdTwos();
+
+        @Query("select o from One o where concat(o.title, ' ', o.name) like concat('%', ?1, ' ', ?2, '%')")
+        List<One> getWithTitleAndName(String title, String name);
     }
 }
