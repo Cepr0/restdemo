@@ -196,7 +196,7 @@ public class OneTwoTest extends BaseTest {
 		List<One> list = oneRepo.getWithTitleAndName("mr.", "one");
 		assertThat(list).hasSize(2);
 
-		Specification<One> p = dynamicLike("mr. one", asList("title", "name"));
+		Specification<One> p = dynamicLike("Mr. One", asList("title", "name"));
 		assertThat(oneRepo.findAll(p)).hasSize(2);
 	}
 
@@ -211,7 +211,7 @@ public class OneTwoTest extends BaseTest {
 						cb.concat(root.get(property), " ");
 			}
 
-			return cb.like(concat, "%" + value + "%");
+			return cb.like(cb.lower(concat), "%" + value.toLowerCase() + "%");
 		};
 	}
 }
