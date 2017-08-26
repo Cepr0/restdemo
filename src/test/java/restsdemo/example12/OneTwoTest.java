@@ -8,10 +8,11 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.domain.Specification;
 import restsdemo.BaseTest;
+import restsdemo.base.LongId;
+import restsdemo.example14.BaseEntity;
 
 import javax.persistence.criteria.*;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 import static java.util.Arrays.asList;
 import static org.assertj.core.api.Assertions.assertThat;
@@ -195,14 +196,22 @@ public class OneTwoTest extends BaseTest {
 		List<One> list = oneRepo.getWithTitleAndName("mr.", "one");
 		assertThat(list).hasSize(2);
 
-		Specification<One> p = getOneSpecification("mr.", "one");
+		Specification<One> p = dynamicLike("mr. one", asList("title", "name"));
 		assertThat(oneRepo.findAll(p)).hasSize(2);
 	}
 
-	private Specification<One> getOneSpecification(String title, String name) {
-		return (ones, query, cb) -> cb.like(
-				cb.concat(ones.get("title"), cb.concat(" ", ones.get("name"))),
-				"%" + title + " " + name + "%"
-		);
+	private <T> Specification<T> dynamicLike(String value, List<String> properties) {
+		return (Root<T> root, CriteriaQuery<?> query, CriteriaBuilder cb) -> {
+
+			Expression<String> concat = null;
+
+			for (String property : properties) {
+				concat = (concat != null) ?
+						cb.concat(concat, root.get(property)) :
+						cb.concat(root.get(property), " ");
+			}
+
+			return cb.like(concat, "%" + value + "%");
+		};
 	}
 }
