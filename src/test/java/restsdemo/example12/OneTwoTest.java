@@ -199,7 +199,7 @@ public class OneTwoTest extends BaseTest {
 		Specification<One> p = dynamicLike("Mr. One", "title", "name");
 		assertThat(oneRepo.findAll(p)).hasSize(2);
 
-		p = dynamicLike2("Mr On", "title", "name");
+		p = dynamicLike2("Mr One", "title", "name");
 		List<One> all = oneRepo.findAll(p);
 		assertThat(all).hasSize(2);
 	}
@@ -225,16 +225,15 @@ public class OneTwoTest extends BaseTest {
 		return (Root<T> root, CriteriaQuery<?> query, CriteriaBuilder cb) -> {
 
 			String[] values = value.split("\\s");
-			Expression<String> concat = null;
+			int minNumber = Integer.min(values.length, properties.length);
 
-			// if values.length != properties.length then throw an exception
+			Predicate[] likes = new Predicate[minNumber];
 
-			Predicate[] likes = new Predicate[properties.length];
-			for (int i = 0; i < properties.length; i++) {
+			for (int i = 0; i < minNumber; i++) {
 				likes[i] = cb.like(cb.lower(root.get(properties[i])), "%" + values[i].toLowerCase() + "%");
 			}
+
 			return cb.and(likes);
 		};
 	}
-
 }
