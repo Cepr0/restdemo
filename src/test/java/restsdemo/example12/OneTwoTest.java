@@ -196,22 +196,45 @@ public class OneTwoTest extends BaseTest {
 		List<One> list = oneRepo.getWithTitleAndName("mr.", "one");
 		assertThat(list).hasSize(2);
 
-		Specification<One> p = dynamicLike("Mr. One", asList("title", "name"));
+		Specification<One> p = dynamicLike("Mr. One", "title", "name");
 		assertThat(oneRepo.findAll(p)).hasSize(2);
+
+		p = dynamicLike2("Mr On", "title", "name");
+		List<One> all = oneRepo.findAll(p);
+		assertThat(all).hasSize(2);
 	}
 
-	private <T> Specification<T> dynamicLike(String value, List<String> properties) {
+	private <T> Specification<T> dynamicLike(String value, String... properties) {
 		return (Root<T> root, CriteriaQuery<?> query, CriteriaBuilder cb) -> {
 
 			Expression<String> concat = null;
 
 			for (String property : properties) {
-				concat = (concat != null) ?
-						cb.concat(concat, root.get(property)) :
-						cb.concat(root.get(property), " ");
+				if (concat == null) {
+					concat = cb.concat("", root.get(property));
+				} else {
+					concat = cb.concat(concat, cb.concat(" ", root.get(property)));
+				}
 			}
 
 			return cb.like(cb.lower(concat), "%" + value.toLowerCase() + "%");
 		};
 	}
+
+	private <T> Specification<T> dynamicLike2(String value, String... properties) {
+		return (Root<T> root, CriteriaQuery<?> query, CriteriaBuilder cb) -> {
+
+			String[] values = value.split("\\s");
+			Expression<String> concat = null;
+
+			// if values.length != properties.length then throw an exception
+
+			Predicate[] likes = new Predicate[properties.length];
+			for (int i = 0; i < properties.length; i++) {
+				likes[i] = cb.like(cb.lower(root.get(properties[i])), "%" + values[i].toLowerCase() + "%");
+			}
+			return cb.and(likes);
+		};
+	}
+
 }
