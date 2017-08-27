@@ -2,6 +2,7 @@ package restsdemo.example13;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.BeanUtils;
 import org.springframework.boot.autoconfigure.web.ErrorAttributes;
 import org.springframework.hateoas.Resource;
 import org.springframework.http.ResponseEntity;
@@ -40,8 +41,9 @@ public class FigureController {
 
     @PutMapping("/{id}")
     public ResponseEntity<?> update(@PathVariable("id") Figure figure,  @Valid @RequestBody Figure figureUpdated) {
-        figure.setHeight(figureUpdated.getHeight());
-        figure.setWidth(figureUpdated.getWidth());
+        BeanUtils.copyProperties(figureUpdated, figure, "id");
+        // figure.setHeight(figureUpdated.getHeight());
+        // figure.setWidth(figureUpdated.getWidth());
         return ok(repo.save(figure));
     }
     
