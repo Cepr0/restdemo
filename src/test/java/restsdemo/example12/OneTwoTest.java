@@ -207,7 +207,7 @@ public class OneTwoTest extends BaseTest {
     @Test
     public void getOnesWithJoinTwos() throws Exception {
         QOne qOne = QOne.one;
-
+	     // https://bthurley.wordpress.com/2012/05/29/jpa-jpql-to-join-an-entity-not-mapped/
         Specification<One> p = (one, query, cb) -> {
             Root<Two> twoRoot = query.from(Two.class);
             return cb.equal(one.get("name"), twoRoot.get("name"));
