@@ -204,7 +204,19 @@ public class OneTwoTest extends BaseTest {
 		assertThat(all).hasSize(2);
 	}
 
-	private <T> Specification<T> dynamicLike(String value, String... properties) {
+    @Test
+    public void getOnesWithJoinTwos() throws Exception {
+        QOne qOne = QOne.one;
+
+        Specification<One> p = (one, query, cb) -> {
+            Root<Two> twoRoot = query.from(Two.class);
+            return cb.equal(one.get("name"), twoRoot.get("name"));
+        };
+        List<One> list = oneRepo.findAll(p);
+        assertThat(list).isNotNull();
+    }
+
+    private <T> Specification<T> dynamicLike(String value, String... properties) {
 		return (Root<T> root, CriteriaQuery<?> query, CriteriaBuilder cb) -> {
 
 			Expression<String> concat = null;
