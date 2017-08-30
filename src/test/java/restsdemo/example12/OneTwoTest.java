@@ -55,7 +55,8 @@ public class OneTwoTest extends BaseTest {
 		oneRepo.save(asList(
 				new One("mr.","one1", twos.get(0), twos.get(1)),
 				new One("mr.","one2", twos.get(2), twos.get(3), twos.get(4)),
-				new One("ms.", "one3")
+				new One("ms.", "one3"),
+				new One("ms.", "one6")
 		));
 
 		oneRepo.flush();
@@ -216,7 +217,14 @@ public class OneTwoTest extends BaseTest {
         assertThat(list).isNotNull();
     }
 
-    private <T> Specification<T> dynamicLike(String value, String... properties) {
+	@Test
+	public void getOnesWithUnrelatedJoin() throws Exception {
+
+		List<One.OneTwo> list = oneRepo.getOnesWithUnrelatedJoin();
+		assertThat(list).isNotNull();
+	}
+
+	private <T> Specification<T> dynamicLike(String value, String... properties) {
 		return (Root<T> root, CriteriaQuery<?> query, CriteriaBuilder cb) -> {
 
 			Expression<String> concat = null;

@@ -61,5 +61,13 @@ public class One extends LongId {
 
         @Query("select o from One o where concat(o.title, ' ', o.name) like concat('%', ?1, ' ', ?2, '%')")
         List<One> getWithTitleAndName(String title, String name);
+
+        @Query("select o as one, t as two from One o, Two t where exists (select t from Two t where substring(t.name, 4, 1) = substring(o.name, 4, 1)) or not exists (select t from Two t where substring(t.name, 4, 1) = substring(o.name, 4, 1))")
+        List<OneTwo> getOnesWithUnrelatedJoin();
+    }
+
+    public interface OneTwo {
+        One getOne();
+        Two getTwo();
     }
 }
