@@ -26,4 +26,6 @@ public interface WorkerRepo extends JpaRepository<Worker, Long> {
 
     @Query("select w from Worker w join w.positions p where p in (?1) group by w having count(p) >= (select count(p2) from Position p2 where p2 in (?1))")
     List<Worker> findIfSubsetExists(@Param("positions") List<Position> positions);
+
+    List<Worker.WithPositions> findDistinctBy();
 }

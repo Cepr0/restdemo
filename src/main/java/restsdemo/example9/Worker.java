@@ -8,6 +8,7 @@ import restsdemo.base.LongId;
 
 import javax.persistence.*;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import static java.util.Arrays.asList;
@@ -30,6 +31,11 @@ public class Worker extends LongId {
     public Worker(String name, Position... positions) {
         this.name = name;
         this.positions.addAll(asList(positions));
+    }
+
+    public interface WithPositions {
+        String getName();
+        List<Position> getPositions();
     }
 
 // public Worker addPositions(Position... positions) {

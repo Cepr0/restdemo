@@ -70,4 +70,10 @@ public class WorkerRepoTest extends BaseTest {
         assertThat(workers).hasSize(3);
 
     }
+
+    @Test
+    public void findDistinctBy() throws Exception {
+        List<Worker.WithPositions> list = workerRepo.findDistinctBy();
+        assertThat(list).isNotNull();
+    }
 }
