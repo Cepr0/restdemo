@@ -29,8 +29,8 @@ public class SampleService {
 
 		try {
 			for (int i = 0; i < size; i += batchSize) {
-				int toIndex = i + (((i + batchSize) < size) ? batchSize : size - i) ;
-				processChunk(samples.subList(i, toIndex));
+				int toIndex = i + (((i + batchSize) < size) ? batchSize : size - i);
+				processBatch(samples.subList(i, toIndex));
 				em.flush();
 				em.clear();
 			}
@@ -40,7 +40,7 @@ public class SampleService {
 	}
 
 	@Transactional
-	protected void processChunk(List<Sample> batch) {
+	protected void processBatch(List<Sample> batch) {
 		if (savedEntities.size() > 20) throw new RuntimeException();
 		for (Sample t : batch) {
 			Sample result;
