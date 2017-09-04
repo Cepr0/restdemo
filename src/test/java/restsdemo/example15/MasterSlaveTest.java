@@ -30,9 +30,13 @@ public class MasterSlaveTest extends BaseTest {
     
         Slave slave1 = new Slave("slave1");
         Slave slave2 = new Slave("slave2");
-        Master master = new Master("master1", slave1, slave2);
-    
-        masterRepo.save(master);
+        Master master1 = new Master("master1", slave1, slave2);
+
+        Slave slave3 = new Slave("slave30");
+        Slave slave4 = new Slave("slave40");
+        Master master2 = new Master("master20", slave3, slave4);
+
+        masterRepo.save(asList(master1, master2));
     }
     
     @Test
@@ -53,7 +57,16 @@ public class MasterSlaveTest extends BaseTest {
             assertThat(dto.getSlaveNames()).hasSize(2);
         }
     }
-    
+
+    @Test
+    public void getDtosTest() throws Exception {
+
+        List<MasterDto> dtos = masterRepo.findBy();
+        assertThat(dtos).isNotNull();
+        assertThat(dtos).hasSize(2);
+        assertThat(dtos.get(0).getSlaves()).hasSize(2);
+    }
+
     @Test
     public void updateMasterTest() throws Exception {
         
@@ -70,12 +83,12 @@ public class MasterSlaveTest extends BaseTest {
         assertThat(m.getSlaves().stream().map(Slave::getName).collect(Collectors.toList()))
                 .containsOnly("slave3", "slave4");
     
-        assertThat(slaveRepo.findAll()).hasSize(4);
+        assertThat(slaveRepo.findAll()).hasSize(6);
     }
     
     @Test
     public void getSlaveTest() throws Exception {
-        assertThat(slaveRepo.findAll()).hasSize(2);
+        assertThat(slaveRepo.findAll()).hasSize(4);
     }
     
     @Test
@@ -84,7 +97,7 @@ public class MasterSlaveTest extends BaseTest {
         slaveRepo.save(new Slave("slave3", m));
         
         List<Slave> slaves = slaveRepo.findAll();
-        assertThat(slaves).hasSize(3);
+        assertThat(slaves).hasSize(5);
         
         Optional<Slave> slaveOptional = slaves.stream().filter(slave -> "slave3".equals(slave.getName())).findFirst();
         assertTrue(slaveOptional.isPresent());

@@ -13,10 +13,11 @@ import java.util.stream.Collectors;
 public interface MasterDto {
     
     Long getId();
-    
+
+    @Value("#{target.name}")
     String getName();
-    
-    @Value("#{target.slaves}")
+
+//    @Value("#{target.slaves}") // https://jira.spring.io/browse/DATAJPA-1173
     List<Slave> getSlaves();
     
     @JsonProperty("")
