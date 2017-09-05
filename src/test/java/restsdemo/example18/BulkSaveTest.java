@@ -2,7 +2,10 @@ package restsdemo.example18;
 
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.junit4.SpringRunner;
 import restsdemo.BaseTest;
 
 import java.util.ArrayList;
@@ -15,7 +18,9 @@ import static org.junit.Assert.*;
 /**
  * @author Cepro, 2017-09-04
  */
-public class BulkSaveTest extends BaseTest {
+@RunWith(SpringRunner.class)
+@SpringBootTest
+public class BulkSaveTest {
 
 	@Autowired
 	private SampleService service;
@@ -30,6 +35,6 @@ public class BulkSaveTest extends BaseTest {
 		}
 
 		Collection<Sample> result = service.bulkSave(samples);
-		assertThat(result).hasSize(40);
+		assertThat(result).hasSize(59);
 	}
 }

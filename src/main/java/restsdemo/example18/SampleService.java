@@ -1,10 +1,8 @@
 package restsdemo.example18;
 
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -12,11 +10,11 @@ import java.util.List;
 /**
  * @author Cepro, 2017-09-04
  */
+@RequiredArgsConstructor
 @Service
 public class SampleService {
 
-	@PersistenceContext
-	private EntityManager em;
+	private final BatchSave batchSave;
 
 	// @Value("${spring.jpa.properties.hibernate.jdbc.batch_size}")
 	private int batchSize = 20;
@@ -30,27 +28,12 @@ public class SampleService {
 		try {
 			for (int i = 0; i < size; i += batchSize) {
 				int toIndex = i + (((i + batchSize) < size) ? batchSize : size - i);
-				processBatch(samples.subList(i, toIndex));
-				em.flush();
-				em.clear();
+				savedEntities.addAll(batchSave.process(samples.subList(i, toIndex)));
 			}
-		} catch (Exception ignored) {
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
 		return savedEntities;
 	}
 
-	@Transactional
-	protected void processBatch(List<Sample> batch) {
-		if (savedEntities.size() > 20) throw new RuntimeException();
-		for (Sample t : batch) {
-			Sample result;
-			if (t.getId() == null) {
-				em.persist(t);
-				result = t;
-			} else {
-				result = em.merge(t);
-			}
-			savedEntities.add(result);
-		}
-	}
 }
