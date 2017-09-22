@@ -1,5 +1,6 @@
 package restsdemo.base;
 
+import org.springframework.data.repository.NoRepositoryBean;
 import org.springframework.hateoas.Identifiable;
 
 import java.io.Serializable;
